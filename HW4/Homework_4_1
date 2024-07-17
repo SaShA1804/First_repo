@@ -1,0 +1,26 @@
+def total_salary(path):
+    sum_salary = 0
+    index = 0
+    
+    try:
+        with open(path, "r") as fh:
+            for line in fh:
+                line = line.strip()
+                if line:
+                    try:
+                        name, salary = line.split(",")
+                        salary_int = float(salary)
+                        sum_salary += salary_int
+                        index += 1
+                    except ValueError:
+                        print(f"Помилка обробки рядка: {line}")
+    except FileNotFoundError:
+        print(f"Файл '{path}' не знайдено!")
+
+    average = sum_salary / index if index > 0 else 0
+    return average, sum_salary
+
+# Виклик функції і вивід результатів
+path_to_file = "programmers.txt"
+average, total = total_salary(path_to_file)
+print(f"Загальна сума зарплат: {total}, Середня заробітна плата: {average}")
